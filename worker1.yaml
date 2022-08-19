@@ -53,6 +53,11 @@
     shell: |
      echo "net.bridge.bridge-nf-call-iptables=1" | sudo tee -a /etc/sysctl.conf
      sudo sysctl -p
+  # Removing container Runtime Error
+  - name: Remove config.toml and Restart Containerd
+    shell: |
+     sudo rm -rf /etc/containerd/config.toml
+     sudo systemctl restart containerd
   # Joining the Worker nodes to the cluster
   - name: Copying token to worker nodes
     copy: src={{ token_file }} dest=join_token
