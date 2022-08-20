@@ -60,7 +60,7 @@
      sudo systemctl restart containerd
   # Joining the Worker nodes to the cluster
   - name: join cluster
-    shell: "{{ hostvars['master.example.com'].join_command }} --ignore-preflight-errors all  >> node_joined.txt"
+    shell: "{{ hostvars['tag_Name_master'].join_command }} --ignore-preflight-errors all  >> node_joined.txt"
     args:
      chdir: $HOME
      creates: node_joined.txt
