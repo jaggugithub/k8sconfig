@@ -1,3 +1,5 @@
+ansible_python_interpreter: /usr/bin/python3
+
 # Based on https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#check-required-ports
 # and https://coreos.com/flannel/docs/latest/troubleshooting.html (Firewalls section)
 master_ports:
