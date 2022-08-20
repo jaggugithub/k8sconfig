@@ -60,7 +60,7 @@
     with_items: "{{ master_ports }}"
   # Allow Masquerading in Firewalld
   - name: Allow masquerading in Firewalld
-    ansible.posix.firewalld:
+    firewalld:
      masquerade: "yes"
      state: enabled
      permanent: yes
