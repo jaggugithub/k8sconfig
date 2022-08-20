@@ -3,6 +3,8 @@
   remote_user: ubuntu
   become: true
   become_user: root
+  vars:
+    token_file: join_token
   tasks:
   # Update the Repository
   - name: Update apt packages
@@ -59,8 +61,10 @@
      sudo rm -rf /etc/containerd/config.toml
      sudo systemctl restart containerd
   # Joining the Worker nodes to the cluster
-  - name: join cluster
-    shell: "{{ hostvars['tag_Name_master'].join_command }} --ignore-preflight-errors all  >> node_joined.txt"
-    args:
-     chdir: $HOME
-     creates: node_joined.txt
+  - name: Copying token to worker nodes
+    copy: src={{ token_file }} dest=join_token
+  - name: Joining worker nodes with kubernetes master
+    shell: |
+     kubeadm reset -f
+     cat join_token | tail -2 > out.sh
+     sh out.sh
