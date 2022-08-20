@@ -62,10 +62,6 @@
   - name: Initializing Kubernetes cluster For Flannel CNI
     shell: sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=NumCPU
     register: output
-  # Storing Generated Token
-  - name: Storing Logs and Generated token for future purpose.
-    local_action: copy content={{ output.stdout }} dest={{ token_file }}
-    become: False
   # To start using the cluster with current user.
   - name: Copying required files
     shell: |
@@ -75,3 +71,10 @@
   # Install network plugin on Master
   - name: To Set with flannel networking
     command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+  # Storing Generated Token
+  - name: Get Join Command
+    shell: kubeadm token create --print-join-command
+    register: join_command_raw
+  - name: Set Join Command
+    set_fact:
+     join_command: "{{ join_command_raw.stdout_lines[0] }}"

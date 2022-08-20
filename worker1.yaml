@@ -59,11 +59,8 @@
      sudo rm -rf /etc/containerd/config.toml
      sudo systemctl restart containerd
   # Joining the Worker nodes to the cluster
-  - name: Copying token to worker nodes
-    copy: src={{ token_file }} dest=join_token
-
-  - name: Joining worker nodes with kubernetes master
-    shell: |
-     kubeadm reset -f
-     cat join_token | tail -2 > out.sh
-     sh out.sh
+  - name: join cluster
+    shell: "{{ hostvars['master.example.com'].join_command }} --ignore-preflight-errors all  >> node_joined.txt"
+    args:
+     chdir: $HOME
+     creates: node_joined.txt
