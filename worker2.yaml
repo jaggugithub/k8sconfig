@@ -5,6 +5,8 @@
   become_user: root
   vars_files:
   - env_variables
+  collections:
+  - ansible.posix
   tasks:
   # Update the Repository
   - name: Update apt packages
