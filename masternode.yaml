@@ -53,18 +53,15 @@
   # Enabling Network Ports on Master Node
   - name: Allow Network Ports in ufw
     ufw:
+     rule: allow
      port: "{{ item }}"
      state: enabled
-     permanent: yes
-     immediate: yes
     with_items: "{{ master_ports }}"
   # Allow Masquerading in Firewalld
   - name: Allow masquerading in ufw
     ufw:
      masquerade: "yes"
      state: enabled
-     permanent: yes
-     immediate: yes
   # Enable the iptables bridge(Set a value in the sysctl file , to allow proper network settings for Kubernetes on all the servers)
   - name: Enable the iptables bridge
     shell: |
