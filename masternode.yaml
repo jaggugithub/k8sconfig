@@ -51,12 +51,17 @@
   - name: Disabling Swap on all nodes
     shell: sudo swapoff -a
   # Enabling Network Ports on Master Node
-  - name: Allow Network Ports in ufw
+  - name: Allow all access to tcp port 6443
     ufw:
      rule: allow
-     port: "{{ item }}"
-     state: enabled
-    with_items: "{{ master_ports }}"
+     port: '6443'
+     proto: tcp
+  # - name: Allow Network Ports in ufw
+  #   ufw:
+  #    rule: allow
+  #    port: "{{ item }}"
+  #    state: enabled
+  #   with_items: "{{ master_ports }}"
   # Allow Masquerading in Firewalld
   - name: Allow masquerading in ufw
     ufw:
