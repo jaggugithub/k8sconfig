@@ -3,7 +3,9 @@
   remote_user: ubuntu
   become: true
   become_user: root
-  gather_facts: True
+  gather_facts: true
+  vars:
+    token_file: join_token
   tasks:
   # Initialize master node
   - name: Initializing Kubernetes cluster For Flannel CNI

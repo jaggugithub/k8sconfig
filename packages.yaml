@@ -3,7 +3,7 @@
   remote_user: ubuntu
   become: true
   become_user: root
-  gather_facts: True
+  gather_facts: true
   tasks:
   # Update the Repository
   - name: Update apt packages
