@@ -3,7 +3,7 @@
   remote_user: ubuntu
   become: true
   become_user: root
-  gather_facts: false
+  gather_facts: True
   tasks:
     - name: get join command
       shell: kubeadm token create --print-join-command
