@@ -50,18 +50,18 @@
   # Disable Swap
   - name: Disabling Swap on all nodes
     shell: sudo swapoff -a
-  # Enabling Network Ports on Master Node
-  - name: Allow Network Ports in ufw
-    ufw:
-     rule: allow
-     port: "{{ item }}"
-     state: enabled
-    with_items: "{{ worker_ports }}"
-  # Allow Masquerading in ufw
-  - name: Allow masquerading in ufw
-    ufw:
-     masquerade: "yes"
-     state: enabled
+  # # Enabling Network Ports on Master Node
+  # - name: Allow Network Ports in ufw
+  #   ufw:
+  #    rule: allow
+  #    port: "{{ item }}"
+  #    state: enabled
+  #   with_items: "{{ worker_ports }}"
+  # # Allow Masquerading in ufw
+  # - name: Allow masquerading in ufw
+  #   ufw:
+  #    masquerade: "yes"
+  #    state: enabled
   # Enable the iptables bridge(Set a value in the sysctl file , to allow proper network settings for Kubernetes on all the servers)
   - name: Enable the iptables bridge
     shell: |
