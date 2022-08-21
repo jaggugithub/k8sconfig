@@ -16,10 +16,7 @@
       state: present
   # Add docker Repo
   - name: Add docker Repo
-    apt_repository:
-      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
-      state: present
-      update_cache: yes
+    shell: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   # Add the GPG key for kubernetes
   - name: Add the GPG key for kubernetes
     apt_key:
