@@ -11,3 +11,9 @@ keyed_groups:
     key: instance_type
   - key: placement.region
     prefix: aws_region
+
+groups:
+   masternodes: "'master' in (tags.Name)"
+   workernodes: "'worker' in (tags.Name)"
+
+

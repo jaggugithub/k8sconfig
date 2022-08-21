@@ -1,0 +1,20 @@
+---
+- hosts: masternodes
+  remote_user: ubuntu
+  become: true
+  become_user: root
+  gather_facts: false
+  tasks:
+  # Initialize master node
+  - name: Initializing Kubernetes cluster For Flannel CNI
+    shell: sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+    register: output
+  # To start using the cluster with current user.
+  - name: Copying required files
+    shell: |
+     mkdir -p $HOME/.kube
+     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+     sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  # Install network plugin on Master
+  - name: To Set with flannel networking
+    command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml

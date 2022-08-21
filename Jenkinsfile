@@ -1,19 +1,19 @@
 pipeline {
     agent any
     stages {
-        stage('Configure k8s_cluster_Master') {
+        stage('Configure k8s and Docker Packages on both Master & Worker nodes') {
             steps {
-                ansiblePlaybook credentialsId: 'k8scluster-key', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'aws_ec2.yaml', playbook: 'masternode.yaml'
+                ansiblePlaybook credentialsId: 'k8scluster-key', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'aws_ec2.yaml', playbook: 'packages.yaml'
             }
         }
-        stage('Configure k8s_cluster_worker1') {
+        stage('Configure k8s_cluster_master') {
             steps {
-                ansiblePlaybook credentialsId: 'k8scluster-key', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'aws_ec2.yaml', playbook: 'worker1.yaml'
+                ansiblePlaybook credentialsId: 'k8scluster-key', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'aws_ec2.yaml', playbook: 'masternodes.yaml'
             }
         }
-        stage('Configure k8s_cluster_worker2') {
+        stage('Configure k8s_cluster_worker') {
             steps {
-                ansiblePlaybook credentialsId: 'k8scluster-key', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'aws_ec2.yaml', playbook: 'worker2.yaml'
+                ansiblePlaybook credentialsId: 'k8scluster-key', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'aws_ec2.yaml', playbook: 'workernodes.yaml'
             }
         }
     }
