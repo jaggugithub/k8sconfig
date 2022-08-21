@@ -9,6 +9,9 @@
   - name: Initializing Kubernetes cluster For Flannel CNI
     shell: sudo kubeadm init --pod-network-cidr=10.244.0.0/16
     register: output
+  # To Store Generated Token for Future Purpose
+  - name: Storing Logs and Generated token for future purpose
+    local_action: copy content={{ output.stdout }} dest={{ token_file }}
   # To start using the cluster with current user.
   - name: Copying required files
     shell: |
