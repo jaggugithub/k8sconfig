@@ -15,6 +15,7 @@
 
   - name: Copy join command to local file.
     become: yes
+    become_user: jenkins
     local_action: copy content="{{ join_command_raw.stdout_lines[0] }}" dest="worker_join_command" mode=0777
 
 
@@ -36,18 +37,3 @@
     command: sh /tmp/worker_join_command
     ignore_errors: True
     register: joined_or_not
-
-# ---
-# - hosts: workernodes
-#   remote_user: ubuntu
-#   become: true
-#   become_user: root
-#   gather_facts: true
-#   vars:
-#     token_file: join_token
-#   tasks:
-#   - name: Copying token to worker nodes
-#     copy: src={{ token_file }} dest=join_token
-
-#   - name: Joining worker nodes with kubernetes master
-#     shell: "`grep -i 'kubeadm join' join_token`"
