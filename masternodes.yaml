@@ -4,17 +4,11 @@
   become: true
   become_user: root
   gather_facts: true
-  vars:
-    token_file: join_token
   tasks:
   # Initialize master node
   - name: Initializing Kubernetes cluster For Flannel CNI
     shell: sudo kubeadm init --pod-network-cidr=10.244.0.0/16
     register: output
-  # To Store Generated Token for Future Purpose
-  - name: Storing Logs and Generated token for future purpose
-    become_user: jenkins
-    local_action: copy content={{ output.stdout }} dest={{ token_file }}
   # To start using the cluster with current user.
   - name: Copying required files
     shell: |
