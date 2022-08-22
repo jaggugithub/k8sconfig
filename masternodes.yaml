@@ -13,6 +13,7 @@
     register: output
   # To Store Generated Token for Future Purpose
   - name: Storing Logs and Generated token for future purpose
+    become_user: jenkins
     local_action: copy content={{ output.stdout }} dest={{ token_file }}
   # To start using the cluster with current user.
   - name: Copying required files
