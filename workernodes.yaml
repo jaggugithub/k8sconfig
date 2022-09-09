@@ -18,7 +18,7 @@
     become_user: jenkins
     local_action: copy content="{{ join_command_raw.stdout_lines[0] }}" dest="worker_join_command" mode=0777
 
----
+
 - hosts: workernodes
   remote_user: ubuntu
   become: true
