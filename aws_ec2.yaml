@@ -15,5 +15,3 @@ keyed_groups:
 groups:
    masternodes: "'master' in (tags.Name)"
    workernodes: "'worker' in (tags.Name)"
-
-
